@@ -7,4 +7,12 @@ function getComputerChoice() {
     return options[randomNum]
 }
 
+function getHumanChoice() {
+    // Prompt the user for a choice of "Rock, Paper, or Scissors?"
+    // and store the selection in a variable of type string called choice.
+    let choice = prompt("Rock, Paper, or Scissors");
+    return choice
+}
+
 console.log(getComputerChoice())
+console.log(getHumanChoice())
