@@ -14,5 +14,10 @@ function getHumanChoice() {
     return choice
 }
 
+// Create variables for player and computer Score of type number
+let playerScore = 0;
+let computerScore = 0;
+
+// Test Operations
 console.log(getComputerChoice())
 console.log(getHumanChoice())
