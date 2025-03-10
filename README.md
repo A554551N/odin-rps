@@ -17,3 +17,16 @@ Store options[randomNum] in computerChoice
 - Load a variable called computerChoice with the result of a call to getComputerChoice()
 - Compare humanChoice and computerChoice to determine a winner.  If they are equal, it is a draw.  Otherwise, Scissors cut paper, paper covers rock, rock breaks scissors.
 - Increment either playerScore or computerScore by one based on winner of round.
+
+### Play a Full Game
+A full game is five rounds.
+- Create a number variable called round which initializes at 1
+- Create a number variable called playerScore which initializes at 0
+- Create a number variable called computerScore which intializes at 0
+- LOOP the following five times using round as the sentry variable.  If round >5 the game is over:
+- Call getHumanChoice and store the result in a variable called humanChoice
+- Call getComputerChoice and store the result in a variable called computerChoice
+- Call PlayRound to determine the winner of a round.  The return value will indicate TRUE if the player wins, otherwise FALSE.
+- display a message to the user indicating the result of the round
+- increment the appropriate score
+- increment the round variable
