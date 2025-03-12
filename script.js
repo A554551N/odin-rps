@@ -7,14 +7,6 @@ function getComputerChoice() {
     return options[randomNum]
 }
 
-function getHumanChoice() {
-    // Prompt the user for a choice of "Rock, Paper, or Scissors?"
-    // and store the selection in a variable of type string called choice.
-    // convert the choice variable to all upper-case letters
-    let choice = prompt("Rock, Paper, or Scissors").toUpperCase();
-    return choice
-}
-
 function playRound(humanChoice, computerChoice) {
     // Compare humanChoice and computerChoice to determine a winner.
     // Otherwise, Scissors cut paper, paper covers rock, rock breaks scissors.
@@ -38,40 +30,60 @@ function playRound(humanChoice, computerChoice) {
     }
 }
 
-function playGame() {
-    // - Create a number variable called round which initializes at 1
-    let round = 1;
-    // - Create a number variable called playerScore which initializes at 0
-    let playerScore = 0;
-    // - Create a number variable called computerScore which intializes at 0
-    let computerScore = 0
-    // - LOOP the following five times using round as the sentry variable.  If round >5 the game is over:
-    while (round <= 5) {
-        // - Call getHumanChoice and store the result in a variable called humanChoice
-        let humanChoice = getHumanChoice();
-        // - Call getComputerChoice and store the result in a variable called computerChoice
-        let computerChoice = getComputerChoice();
-        // - Call playRound to determine the winner of a round.  The return value will indicate TRUE if the player wins, otherwise FALSE.
-        // Store the return value in a boolean variable called result
-        let result = playRound(humanChoice,computerChoice)
-        if (result === "WIN") {
-            // - Increment the appropriate score
-            playerScore += 1
-            // - Display a message to the user indicating the result of the round
-            console.log(`${humanChoice} beats ${computerChoice}, you win!`)
-        } else if (result === "LOSE") {
-            // - Increment the appropriate score
-            computerScore += 1
-            // - Display a message to the user indicating the result of the round
-            console.log(`${computerChoice} beats ${humanChoice}, you lose!`)
-        } else {
-            console.log("The result is a draw!")
-        }
-        round += 1
+function playGame(humanChoice) {
+    const container = document.querySelector("#container");
+    const roundText = document.createElement("p");
+    const playerScoreText = document.querySelector("#playerScore");
+    const computerScoreText = document.querySelector("#computerScore");
+    roundText.textContent = `Round: ${round}`;
+    container.appendChild(roundText);
+
+    console.log(`Round ${round}`)
+
+    // - Call getComputerChoice and store the result in a variable called computerChoice
+    let computerChoice = getComputerChoice();
+    
+    // - Call playRound to determine the winner of a round.  The return value will indicate TRUE if the player wins, otherwise FALSE.
+    // Store the return value in a boolean variable called result
+    let result = playRound(humanChoice,computerChoice)
+    const roundOutcome = document.createElement("p")
+    if (result === "WIN") {
         // - Increment the appropriate score
-        // - Increment the round variable
+        humanScore += 1
+        // - Display a message to the user indicating the result of the round
+        roundOutcome.textContent = `${humanChoice} beats ${computerChoice}.  You win!`;
+
+    } else if (result === "LOSE") {
+        // - Increment the appropriate score
+        computerScore += 1
+        // - Display a message to the user indicating the result of the round
+        roundOutcome.textContent = `${computerChoice} beats ${humanChoice}.  You lose!`;
+    } else {
+        roundOutcome.textContent = "The round is a draw.";
     }
-    console.log(`Final Score\nPlayer: ${playerScore}\nComputer:${computerScore}`)
+
+    // Update DOM
+    container.appendChild(roundOutcome)
+    playerScoreText.textContent = `Player Score: ${humanScore}`
+    computerScoreText.textContent = `Computer Score: ${computerScore}`
+
+    // - Increment the round variable
+    round += 1
+
+    //check to see if game is over
+    if (humanScore>=5 || computerScore >= 5) {
+        const gameOverMessage = document.querySelector("#gameOverMessage")
+        gameOverMessage.style.color = "red";
+        gameOverMessage.textContent = `Game Over`;
+        buttons.style.display = "none";
+    }
+
+    //Announce a winner
+    console.log(`Final Score\nPlayer: ${humanScore}\nComputer:${computerScore}`)
 }
 
-playGame()
+let humanScore = 0;
+let computerScore = 0;
+let round = 1;
+const buttons = document.querySelector("#buttonContainer");
+buttons.addEventListener("click",(e) => playGame(e.target.id))
